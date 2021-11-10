@@ -1,33 +1,28 @@
-import React, { useHistory, useState } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
   const [credentials, setCredentials] = useState([]);
+  const history = useHistory();
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setCredentials({
       ...credentials,
-        [e.target.name]: e.target.value
-      })
-    };
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const login = (e) => {
     e.preventDefault();
     axios
-      .post(
-        "http://localhost:5000/api/login",
-        `{ username: 'lambda', password: 'school' }`
-      )
+      .post("http://localhost:5000/api/login", credentials)
       .then((resp) => {
         //2. if the call is successful: save token in localStorage
-        console.log(resp);
-        // localStorage.setItem('token', resp.data.token);
-        // localStorage.setItem('role', resp.data.role);
-        // localStorage.setItem('username', resp.data.username);
-        // this.props.history.push('/protected');
+        localStorage.setItem("token", resp.data.payload);
+        history.push("/friendslist");
       })
       .catch((err) => {
-        //3. if the call is unsuccessful: console.log error
         console.log(err);
       });
   };
