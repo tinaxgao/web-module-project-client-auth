@@ -14,15 +14,19 @@ const FriendsList = () => {
         console.log(err);
       });
   }, []);
-  return <div>Friends List
 
-{friends.map(friend => (
-    <div><div>{friend.name}</div>
-    <div>{friend.age}</div>
-    <div>{friend.email}</div></div>
-))}
-
-  </div>;
+  return (
+    <div>
+      <h2>Friends List</h2>
+      {friends.map((friend) => (
+        <div>
+          <div>{friend.name}</div>
+          <div>{friend.age}</div>
+          <div>{friend.email}</div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default FriendsList;
